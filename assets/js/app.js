@@ -17,8 +17,12 @@ window.IS = {
     init: function () {
         var self = this,
             current = 0,
+            container = $('.main'),
             slideshowData = '/assets/json/test.json',
             queue = self.getImages(slideshowData);
+
+        // Set main container height equal to window height, cause, it's dumb
+        container.height($( window ).height());
 
         // Start looping through the array
         self.photoLoop(queue, current);
