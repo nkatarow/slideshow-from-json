@@ -1,0 +1,87 @@
+<!doctype html>
+<head>
+    <title></title>
+    <!--<link rel="stylesheet" href="/assets/css/main.css">-->
+    <style>
+        body {
+            background-color: #242424;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+            border-radius: 150px;
+
+            -webkit-box-shadow:
+                inset 0 0 50px #252525,
+                inset 0 0 75px #252525,
+                inset 0 0 100px #252525;
+
+            -moz-box-shadow:
+                inset 0 0 50px #252525,
+                inset 0 0 75px #252525,
+                inset 0 0 100px #252525;
+                   
+            box-shadow:
+                inset 0 0 50px #252525,
+                inset 0 0 75px #252525,
+                inset 0 0 100px #252525;
+        }
+        .main {
+            height: 100%;
+            width: 100%;
+        }
+        img {
+            border: 10px solid #fff;
+            border-bottom: 85px solid #fff;
+            top: 12%;
+            position: relative;
+            max-height: 70%;
+
+            -webkit-box-shadow: 3px 3px 3px #777;
+            -moz-box-shadow: 3px 3px 3px #777;
+            box-shadow: 3px 3px 3px #777;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+
+
+
+        }
+        li span {
+            background-color: #fff;
+        }
+        li:first-child {
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+
+    <section class="main" role="main">
+
+        <ul id="slideshow"></ul>
+
+    </section>
+
+    <footer></footer>
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script>
+        IS.init();
+    </script>
+</body>
+</html>
