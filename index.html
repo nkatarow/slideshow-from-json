@@ -5,10 +5,15 @@
     <style>
         body {
             background-color: #242424;
+        }
+        .main {
+            height: 100%;
+            width: 100%;
             -webkit-border-radius: 150px;
             -moz-border-radius: 150px;
             border-radius: 150px;
 
+            /* NOT WORKING */
             -webkit-box-shadow:
                 inset 0 0 50px #252525,
                 inset 0 0 75px #252525,
@@ -24,9 +29,17 @@
                 inset 0 0 75px #252525,
                 inset 0 0 100px #252525;
         }
-        .main {
-            height: 100%;
-            width: 100%;
+        .logo {
+            background-image: url(/assets/images/logo.png);
+            background-size: 220px;
+            display: block;
+            height: 188px;  /*image height 546px */
+            left: 20px;
+            overflow: visible;
+            position: absolute;
+            text-indent: -99999px;
+            top: 20px;
+            width: 220px; /* image width 640px */
         }
         img {
             border: 10px solid #fff;
@@ -66,7 +79,7 @@
 </head>
 <body>
     <header>
-        <h1></h1>
+        <h1 class="logo">Naughty or Nice</h1>
     </header>
 
     <section class="main" role="main">
