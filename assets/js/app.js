@@ -52,7 +52,7 @@ window.IS = {
     }, // END getImages
 
     imgEmbed: function (imgURL) {
-        $('#slideshow').append('<li><span><img src="' + imgURL + '"></span></li>');
+        $('#slideshow').append('<li><img src="' + imgURL + '"></li>');
     }, // END imgEmbed
 
     photoLoop: function (queue, current) {
@@ -67,28 +67,23 @@ window.IS = {
 
                 current++;
 
-                $("#slideshow li:first-child").fadeOut( 1300, function() {
-                    self.removePhoto($('#slideshow li:first-child'), queue, current);
-
-                    // Embeds next image in queue to the bottom of the list
-                    self.imgEmbed(queue[current]);
-                });
-
-
             // If we're the last image
             } else if (current === queue.length - 1) {
 
                 current = 0;
-                $("#slideshow li:first-child").fadeOut( 1300, function() {
-                    self.removePhoto($('#slideshow li:first-child'), queue, current);
-
-                    // Embeds next image in queue to the bottom of the list
-                    self.imgEmbed(queue[current]);
-                });
 
             } else {
                 console.log('This shouldn\'t even happen... WTF');
             }
+
+            $("#slideshow li:first-child img").fadeOut( 1300, function() {
+                self.removePhoto($('#slideshow li:first-child'), queue, current);
+
+                // Embeds next image in queue to the bottom of the list
+                self.imgEmbed(queue[current]);
+            });
+
+            $("#slideshow li:nth-child(2) img").fadeIn( 1300 );
 
             setTimeout (function(){
                 self.photoLoop(queue, current);
@@ -98,6 +93,8 @@ window.IS = {
         } else {
             self.imgEmbed(queue[0]);
             self.imgEmbed(queue[1]);
+
+            $("#slideshow li:first-child img").fadeIn( 1300, function(){} );
 
             current++;
 
