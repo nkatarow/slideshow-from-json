@@ -8,7 +8,6 @@
     - jQuery 1.7.2
 
     TO DO:
-    - AJAX Failure Method
     - Find better alternative to setTimeout?
     - Use CSS alternative to fadeIn/Out?
 
@@ -45,8 +44,11 @@ window.SSFJ.Slideshow = function (options) {
     // Set main container height equal to window height, cause, it's dumb
     $(self.options.container).height($( window ).height());
 
-    // Start looping through the array
-    self.photoLoop(queue, current);
+    // Only start loop is there's more than one item
+    if (queue.length > 1) {
+        // Start looping through the array
+        self.photoLoop(queue, current);
+    }
 }; // END init
 
 window.SSFJ.Slideshow.prototype = {
@@ -63,13 +65,16 @@ window.SSFJ.Slideshow.prototype = {
             dataType: 'json',
             success: function(data) {
                 dataObj = data;
+
+                // For every image in object, add URL to queue array
+                for (var key in dataObj.data.images) {
+                    queue.push(dataObj.data.images[key].link);
+                }
+            },
+            error: function() {
+                console.log('Unable to load ' + slideshowData);
             }
         });
-
-        // For every image in object, add URL to queue array
-        for (var key in dataObj.data.images) {
-            queue.push(dataObj.data.images[key].link);
-        }
 
         return queue;
     }, // END getImages
