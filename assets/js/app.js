@@ -9,20 +9,43 @@
 
     TO DO:
     - AJAX Failure Method
+    - Overwritable defaults config options
+    - Find better alternative to setTimeout?
+    - Use CSS alternative to fadeIn/Out
+
 */
 
 var IS = window.IS || {};
 
 window.IS = {
-    init: function () {
+    init: function (options) {
         var self = this,
             current = 0,
-            container = $('.main'),
-            slideshowData = '/assets/json/test.json',
-            queue = self.getImages(slideshowData);
+            defaults,
+            option;
+
+        defaults = {
+            // List we're targeting
+            list: '#slideshow',
+
+            // Set element that list lives inside
+            container: '.main',
+
+            // Location of our JSON
+            slideshowData: '/assets/json/test.json'
+        };
+
+        for (option in options) {
+            defaults[option] = options[option] || defaults [option];
+        }
+
+        self.options = defaults;
+
+        // Set up our queue array
+        var queue = self.getImages(self.options.slideshowData);
 
         // Set main container height equal to window height, cause, it's dumb
-        container.height($( window ).height());
+        $(self.options.container).height($( window ).height());
 
         // Start looping through the array
         self.photoLoop(queue, current);
@@ -51,58 +74,64 @@ window.IS = {
         return queue;
     }, // END getImages
 
-    imgEmbed: function (imgURL) {
-        $('#slideshow').append('<li><img src="' + imgURL + '"></li>');
-    }, // END imgEmbed
-
     photoLoop: function (queue, current) {
+        // This is our work horse function that cycles through infinitely
         var self = this;
 
-        console.log(current);
-
         // If the list already has items in it...
-        if ($('#slideshow').children('li').length) {
+        if ($(self.options.list).children('li').length) {
 
+            // If the counter is less than the total amount of items
             if (current < queue.length - 1) {
-
+                // Just advance the counter
                 current++;
 
             // If we're the last image
             } else if (current === queue.length - 1) {
-
+                // Set counter to 0 so the loop restarts
                 current = 0;
-
-            } else {
-                console.log('This shouldn\'t even happen... WTF');
             }
 
-            $("#slideshow li:first-child img").fadeOut( 1300, function() {
-                self.removePhoto($('#slideshow li:first-child'), queue, current);
+            $(self.options.list + " li:first-child img").fadeOut( 1300, function() {
+                // Get rid of the now faded out image
+                self.removePhoto($(self.options.list + ' li:first-child'), queue, current);
 
                 // Embeds next image in queue to the bottom of the list
                 self.imgEmbed(queue[current]);
             });
 
-            $("#slideshow li:nth-child(2) img").fadeIn( 1300 );
+            // Fade in the next image up
+            $(self.options.list + " li:nth-child(2) img").fadeIn( 1300 );
 
+            // Wait 'X' amount of time before restarting the loop
             setTimeout (function(){
                 self.photoLoop(queue, current);
             }, 10000);
 
-
+        // Otherwise, get this baby started
         } else {
+            // Embed the first two images
             self.imgEmbed(queue[0]);
             self.imgEmbed(queue[1]);
 
-            $("#slideshow li:first-child img").fadeIn( 1300, function(){} );
+            // Fade in the first one
+            $(self.options.list + " li:first-child img").fadeIn( 1300, function(){} );
 
+            // Advance the counter
             current++;
 
+            // Wait 'X' amount of time before restarting the loop
             setTimeout (function(){
                 self.photoLoop(queue, current);
             }, 10000);
         }
     }, // END photoLoop
+
+    imgEmbed: function (imgURL) {
+        var self = this;
+
+        $(self.options.list).append('<li><img src="' + imgURL + '"></li>');
+    }, // END imgEmbed
 
     removePhoto: function (currentImg, queue, current) {
         var self = this;
