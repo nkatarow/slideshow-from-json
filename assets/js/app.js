@@ -9,9 +9,8 @@
 
     TO DO:
     - AJAX Failure Method
-    - Overwritable defaults config options
     - Find better alternative to setTimeout?
-    - Use CSS alternative to fadeIn/Out
+    - Use CSS alternative to fadeIn/Out?
 
 */
 
@@ -28,7 +27,10 @@ window.SSFJ.Slideshow = function (options) {
         container: '#primary',
 
         // Location of our JSON
-        slideshowData: '/assets/json/test.json'
+        slideshowData: '/assets/json/test.json',
+
+        // Slide delay length (in ms)
+        delay: 10000
     };
 
     for (option in options) {
@@ -104,7 +106,7 @@ window.SSFJ.Slideshow.prototype = {
             // Wait 'X' amount of time before restarting the loop
             setTimeout (function(){
                 self.photoLoop(queue, current);
-            }, 10000);
+            }, self.options.delay);
 
         // Otherwise, get this baby started
         } else {
@@ -121,7 +123,7 @@ window.SSFJ.Slideshow.prototype = {
             // Wait 'X' amount of time before restarting the loop
             setTimeout (function(){
                 self.photoLoop(queue, current);
-            }, 10000);
+            }, self.options.delay);
         }
     }, // END photoLoop
 
