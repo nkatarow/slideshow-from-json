@@ -1,7 +1,7 @@
 /*
 
     Main JavaScript
-    VERSION 0.0.1
+    VERSION 0.1.0
     AUTHORS: Nick Katarow
 
     DEPENDENCIES:
@@ -41,7 +41,8 @@ window.SSFJ.Slideshow = function (options) {
     // Set up our queue array
     var queue = self.getImages(self.options.slideshowData);
 
-    // Set main container height equal to window height, cause, it's dumb
+    // Set container heights equal to window height, kinda gross but mostly for demo
+    $('.main').height($( window ).height());
     $(self.options.container).height($( window ).height());
 
     // Only start loop is there's more than one item
