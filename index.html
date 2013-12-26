@@ -2,28 +2,47 @@
 <head>
     <title>Naughty or Nice</title>
     <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+        /* For double instantiation demo purposes */
+        .example {
+            display: block;
+            float: left;
+            position: relative;
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1 class="logo">Naughty or Nice</h1>
     </header>
 
-    <!-- These are the default elements the JS will use if not instansiated with other options -->
-    <section class="main" role="main">
-        <ul id="slideshow"></ul>
-    </section>
+    <section id="main" class="main" role="main">
+        <!-- These are the default elements the JS will use if not instansiated with other options -->
+        <section id="primary" class="example">
+            <ul class="slideshow"></ul>
+        </section>
 
-    <!-- Added this as an example to pass custom options -->
-    <section class="secondary" role="main">
-        <ul id="slides"></ul>
-    </section>
+        <!-- Added this as an example to pass custom options -->
+        <section id="secondary" class="example">
+            <ul class="slideshow"></ul>
+        </section>
+    </section><!-- /#main -->
 
     <!-- Grab Google CDN's jQuery -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="/assets/js/app.js"></script>
     <script>
+    $(document).ready(function () {
+        // Instantiate with default options
+        window.mySlideshow = new SSFJ.Slideshow();
+
         // Showing example of how to instantiate with options other than defaults
-        IS.init({ list: '#slides', container: '.secondary' });
+        window.mySecondSlideshow = new SSFJ.Slideshow({
+            container: '#secondary',
+            slideshowData: 'assets/json/test-two.json'
+        });
+    });
     </script>
 </body>
 </html>

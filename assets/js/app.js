@@ -15,44 +15,42 @@
 
 */
 
-var IS = window.IS || {};
+var SSFJ = window.SSFJ || {};
 
-window.IS = {
-    init: function (options) {
-        var self = this,
-            current = 0,
-            defaults,
-            option;
+window.SSFJ.Slideshow = function (options) {
+    var self = this,
+        current = 0,
+        defaults,
+        option;
 
-        defaults = {
-            // List we're targeting
-            list: '#slideshow',
+    defaults = {
+        // Set element that list lives inside
+        container: '#primary',
 
-            // Set element that list lives inside
-            container: '.main',
+        // Location of our JSON
+        slideshowData: '/assets/json/test.json'
+    };
 
-            // Location of our JSON
-            slideshowData: '/assets/json/test.json'
-        };
+    for (option in options) {
+        defaults[option] = options[option] || defaults [option];
+    }
 
-        for (option in options) {
-            defaults[option] = options[option] || defaults [option];
-        }
+    self.options = defaults;
 
-        self.options = defaults;
+    // Set up our queue array
+    var queue = self.getImages(self.options.slideshowData);
 
-        // Set up our queue array
-        var queue = self.getImages(self.options.slideshowData);
+    // Set main container height equal to window height, cause, it's dumb
+    $(self.options.container).height($( window ).height());
 
-        // Set main container height equal to window height, cause, it's dumb
-        $(self.options.container).height($( window ).height());
+    // Start looping through the array
+    self.photoLoop(queue, current);
+}; // END init
 
-        // Start looping through the array
-        self.photoLoop(queue, current);
-    }, // END init
-
+window.SSFJ.Slideshow.prototype = {
     getImages: function (slideshowData) {
-        var queue = [],
+        var self = this,
+            queue = [],
             dataObj;
 
         // Reach out to JSON and assign data to dataObj variable
@@ -79,7 +77,7 @@ window.IS = {
         var self = this;
 
         // If the list already has items in it...
-        if ($(self.options.list).children('li').length) {
+        if ($(self.options.container + ' .slideshow').children('li').length) {
 
             // If the counter is less than the total amount of items
             if (current < queue.length - 1) {
@@ -92,16 +90,16 @@ window.IS = {
                 current = 0;
             }
 
-            $(self.options.list + " li:first-child img").fadeOut( 1300, function() {
+            $(self.options.container + ' .slideshow li:first-child img').fadeOut( 1300, function() {
                 // Get rid of the now faded out image
-                self.removePhoto($(self.options.list + ' li:first-child'), queue, current);
+                self.removePhoto($(self.options.container + ' .slideshow li:first-child'), queue, current);
 
                 // Embeds next image in queue to the bottom of the list
                 self.imgEmbed(queue[current]);
             });
 
             // Fade in the next image up
-            $(self.options.list + " li:nth-child(2) img").fadeIn( 1300 );
+            $(self.options.container + ' .slideshow li:nth-child(2) img').fadeIn( 1300 );
 
             // Wait 'X' amount of time before restarting the loop
             setTimeout (function(){
@@ -115,7 +113,7 @@ window.IS = {
             self.imgEmbed(queue[1]);
 
             // Fade in the first one
-            $(self.options.list + " li:first-child img").fadeIn( 1300, function(){} );
+            $(self.options.container + ' .slideshow li:first-child img').fadeIn( 1300, function(){} );
 
             // Advance the counter
             current++;
@@ -130,12 +128,12 @@ window.IS = {
     imgEmbed: function (imgURL) {
         var self = this;
 
-        $(self.options.list).append('<li><img src="' + imgURL + '"></li>');
+        $(self.options.container + ' .slideshow').append('<li><img src="' + imgURL + '"></li>');
     }, // END imgEmbed
 
     removePhoto: function (currentImg, queue, current) {
         var self = this;
 
         currentImg.remove();
-    } // END transition
-};
+    } // END removePhoto
+}; // END Slideshow prototype
