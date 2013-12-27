@@ -28,6 +28,9 @@ window.SSFJ.Slideshow = function (options) {
         // Location of our JSON
         slideshowData: '/assets/json/test.json',
 
+        // Location of our images
+        imageDirectory: '/assets/images/',
+
         // Slide delay length (in ms)
         delay: 10000
     };
@@ -39,7 +42,7 @@ window.SSFJ.Slideshow = function (options) {
     self.options = defaults;
 
     // Set up our queue array
-    var queue = self.getImages(self.options.slideshowData);
+    var queue = self.getImages(self.options.slideshowData, self.options.imageDirectory);
 
     // Set container heights equal to window height, kinda gross but mostly for demo
     $('.main').height($( window ).height());
@@ -47,13 +50,15 @@ window.SSFJ.Slideshow = function (options) {
 
     // Only start loop is there's more than one item
     if (queue.length > 1) {
+        console.log(queue);
+
         // Start looping through the array
         self.photoLoop(queue, current);
     }
 }; // END init
 
 window.SSFJ.Slideshow.prototype = {
-    getImages: function (slideshowData) {
+    getImages: function (slideshowData, imageDirectory) {
         var self = this,
             queue = [],
             dataObj;
@@ -68,8 +73,8 @@ window.SSFJ.Slideshow.prototype = {
                 dataObj = data;
 
                 // For every image in object, add URL to queue array
-                for (var key in dataObj.data.images) {
-                    queue.push(dataObj.data.images[key].link);
+                for (var key in dataObj) {
+                    queue.push(imageDirectory + dataObj[key].id);
                 }
             },
             error: function() {

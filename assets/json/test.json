@@ -1,36 +1,32 @@
-{
-    "data": {
-        "images": [
-            {
-                "link": "http://i.imgur.com/Ziz25.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/9tzW6.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/dFg5u.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/oknLx.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/OL6tC.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/cJ9cm.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/7BtPN.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/42ib8.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/BbwIx.jpg"
-            },
-            {
-                "link": "http://i.imgur.com/x7b91.jpg"
-            }
-        ]
+[
+    {
+        "id": "Ziz25"
+    },
+    {
+        "id": "9tzW6"
+    },
+    {
+        "id": "dFg5u"
+    },
+    {
+        "id": "oknLx"
+    },
+    {
+        "id": "OL6tC"
+    },
+    {
+        "id": "cJ9cm"
+    },
+    {
+        "id": "7BtPN"
+    },
+    {
+        "id": "42ib8"
+    },
+    {
+        "id": "BbwIx"
+    },
+    {
+        "id": "x7b91"
     }
-}
+]
